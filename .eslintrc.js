@@ -15,13 +15,7 @@ module.exports = {
   plugins: ["prettier"],
   rules: {
     "react/prop-types": [0],
-    "prettier/prettier": [
-      "warn",
-      {
-        semi: true,
-        printWidth: 90,
-      },
-    ],
+    "arrow-parens": 0,
     "no-console": 0,
     "max-len": [2, { code: 90, ignoreComments: true }],
   },
