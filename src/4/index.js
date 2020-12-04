@@ -1,25 +1,33 @@
 const fs = require("fs/promises");
-const { _, it } = require("param.macro");
+const { _ } = require("param.macro");
 const {
   splitPassports,
   buildPassport,
   hasRequiredFields,
+  fieldValidators,
 } = require("./passport");
 
 async function main() {
   const rawPassports = await fs
     .readFile("./src/4/input.txt", "utf-8")
     .catch(console.error);
-  const requiredFields = ["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"];
+  const passports = splitPassports(rawPassports).map(buildPassport);
 
-  splitPassports(rawPassports)
-    .map(buildPassport)
-    .reduce(
-      (numberOfValidPassports, passport) =>
-        numberOfValidPassports +
-        Number(hasRequiredFields(requiredFields, passport)),
-      0,
-    ) |> console.log("Part 1, number of valid passports: ", _);
+  const requiredFields = ["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"];
+  const hasFields = hasRequiredFields(requiredFields, _);
+
+  passports.reduce(
+    (numberOfValidPassports, passport) =>
+      numberOfValidPassports + Number(hasFields(passport)),
+    0,
+  ) |> console.log("Part 1, number of valid passports: ", _);
+
+  passports.reduce(
+    (numberOfValidPassports, passport) =>
+      numberOfValidPassports +
+      Number(hasFields(passport) && fieldValidators(passport)),
+    0,
+  ) |> console.log("Part 2, number of valid passports: ", _);
 }
 
 main();
