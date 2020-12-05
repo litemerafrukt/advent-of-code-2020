@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "r": "babel-node",
-    "test": "jest"
+    "test": "NODE_ENV=test jest"
   },
   "dependencies": {
     "crocks": "^0.12.4",
