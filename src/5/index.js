@@ -1,6 +1,6 @@
 const fs = require("fs/promises");
 const R = require("ramda");
-const { _, it } = require("param.macro");
+const { _ } = require("param.macro");
 const { findSeatId } = require("./boardingPass");
 
 async function main() {
